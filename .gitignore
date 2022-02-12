@@ -13,3 +13,16 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+*.env
+main
+
+# echo-swagger
+api/swagger.json
+
+# terraform
+.terraform*
+terraform.tfstate*
+terraform.tfvars
+
+unit-tests.xml

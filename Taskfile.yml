@@ -1,0 +1,41 @@
+version: '3'
+
+tasks:
+  docs:
+    cmds:
+      - swag init -g cmd/server/main.go -o api/
+
+  build:
+    deps: [docs]
+    cmds:
+      - go build  -o build/main cmd/server/main.go
+
+  run:
+    deps: [docs, build]
+    cmds:
+      - ./build/main
+
+  fmt:
+    cmds:
+      - go fmt ./...
+
+  test:
+    cmds:
+      - go clean -testcache
+      - gotestsum --junitfile ./unit-tests.xml
+
+  generate:
+    cmds:
+      - go generate ./...
+
+  tf-plan:
+    cmds:
+      - terraform -chdir=deployments/terraform/ plan
+
+  tf-apply:
+    cmds:
+      - terraform -chdir=deployments/terraform/ apply
+
+  tf-destroy:
+    cmds:
+      - terraform -chdir=deployments/terraform/ destroy

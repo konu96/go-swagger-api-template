@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo "Running pre-commit hooks..."
+
+task fmt
+go mod tidy
+task test

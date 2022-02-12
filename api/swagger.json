@@ -1,0 +1,83 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is Atplace server.",
+        "title": "Atplace API",
+        "contact": {},
+        "license": {
+            "name": "Atplace"
+        }
+    },
+    "basePath": "localhost:8080/",
+    "paths": {
+        "/v1/todos/details": {
+            "get": {
+                "description": "TODO ID のリストを受け取って、それらの情報を返すエンドポイント",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "TODO リストを返すエンドポイント",
+                "operationId": "Details",
+                "parameters": [
+                    {
+                        "type": "array",
+                        "description": "todo_ids",
+                        "name": "todo_ids",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "X-API-TOKEN",
+                        "name": "X-API-TOKEN",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TodoElement"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/HTTPError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "HTTPError": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "error message"
+                }
+            }
+        },
+        "TodoElement": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        }
+    }
+}
